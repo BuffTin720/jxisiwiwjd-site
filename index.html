@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#17191c">
+<title>Опора UA</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+<header><div class="brand"><span class="shield">✚</span><div><b>ОПОРА UA</b><small>Гражданская безопасность</small></div></div><span id="clock">—</span></header>
+<main>
+<section id="mapPanel" class="panel active">
+  <div class="toolbar">
+    <select id="regionSelect" aria-label="Область"><option value="">Вся Украина</option></select>
+    <button id="refreshBtn">↻ Обновить</button>
+  </div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot gray"></i>Границы областей</span><span><i class="dot teal"></i>Места помощи</span></div>
+  <p class="muted" id="mapStatus">Карта загружается…</p>
+</section>
+<section id="helpPanel" class="panel">
+  <h2>📍 Места помощи</h2>
+  <p class="muted">Поиск общественных мест поблизости. Данные OpenStreetMap могут быть неполными; часы работы необходимо уточнять отдельно.</p>
+  <label for="helpType">Тип места</label>
+  <select id="helpType">
+    <option value="all">Все доступные типы</option><option value="charging_station">Зарядка устройств</option><option value="drinking_water">Питьевая вода</option><option value="shelter">Укрытия (не подтверждение доступности)</option><option value="community_centre">Общественные центры</option>
+  </select>
+  <button class="primary" id="findHelp">Найти места на карте Украины</button>
+  <div id="helpResults"></div>
+</section>
+<section id="powerPanel" class="panel">
+  <h2>💡 Отключения электричества</h2>
+  <div class="notice">Расписание может измениться. Эта версия не угадывает график и не показывает неподтверждённое отключение как факт.</div>
+  <label for="operator">Оператор</label>
+  <select id="operator"><option value="dtek">ДТЭК Днепровские электросети</option><option value="other">Другие операторы Украины</option></select>
+  <button class="primary" id="openPower">Открыть официальный источник</button>
+  <p class="muted">Время запроса: <b id="powerTime">—</b></p>
+  <p>Для персонального графика используйте адрес или номер группы только на официальном сайте оператора. Не отправляйте домашний адрес в этот бот.</p>
+</section>
+<section id="alertsPanel" class="panel">
+  <h2>🚨 Воздушные тревоги</h2>
+  <div class="notice red">Для немедленных предупреждений используйте официальные оповещения. Карта не заменяет сирену, приложение «Воздушная тревога» или указания местных властей.</div>
+  <a class="source" href="https://www.ukrainealarm.com/" target="_blank" rel="noopener">Открыть официальное приложение / источник ↗</a>
+  <p class="muted">Последняя проверка ссылки: <b id="alertTime">—</b></p>
+  <p>Здесь не отображаются траектории, скорости, маршруты или время приближения военных объектов.</p>
+</section>
+<section id="sourcesPanel" class="panel">
+  <h2>🔎 Источники и ограничения</h2>
+  <ul class="sources">
+    <li><a href="https://www.ukrainealarm.com/" target="_blank" rel="noopener">Воздушная тревога</a><small>Официальные оповещения</small></li>
+    <li><a href="https://www.dtek-dnem.com.ua/ua/shutdowns" target="_blank" rel="noopener">ДТЭК Днепровские электросети</a><small>Отключения и графики</small></li>
+    <li><a href="https://nezlamnist.gov.ua/" target="_blank" rel="noopener">Пункты несокрушимости</a><small>Официальный справочник; уточняйте актуальность</small></li>
+    <li><a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a><small>Краудсорсинговые места помощи; данные могут быть неполными</small></li>
+    <li><a href="https://dsns.gov.ua/" target="_blank" rel="noopener">ГСЧС Украины</a><small>Рекомендации по безопасности</small></li>
+  </ul>
+  <p class="muted">Для каждого набора данных указываются источник и время запроса. Время запроса не означает, что источник подтвердил актуальность каждой записи.</p>
+</section>
+</main>
+<nav class="bottom">
+<button class="tab active" data-panel="mapPanel"><span>⌖</span><small>Карта</small></button>
+<button class="tab" data-panel="alertsPanel"><span>◉</span><small>Тревоги</small></button>
+<button class="tab" data-panel="powerPanel"><span>ϟ</span><small>Свет</small></button>
+<button class="tab" data-panel="helpPanel"><span>⌂</span><small>Помощь</small></button>
+<button class="tab" data-panel="sourcesPanel"><span>☷</span><small>Источники</small></button>
+</nav>
+<script src="app.js"></script>
+</body></html>
